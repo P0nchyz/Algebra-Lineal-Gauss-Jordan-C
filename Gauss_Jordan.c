@@ -16,24 +16,30 @@ Compilación
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct
+typedef struct Matriz
 {
 	int ancho;
 	int alto;
 	float **e; // Arreglo bidimensional
 } Matriz;
 
+typedef struct Pivote
+{
+	int i;
+	int j;
+} Pivote;
+
 void llenarMatriz(Matriz *A);
 
 void imprimirMatriz(Matriz *A);
 
-void cambiar_renglones(Matriz *A, int i, int j);
+void cambiar_renglones(Matriz *A, Pivote *piv);
 
-void hacer_unos(Matriz *A, int i, int j);
+void hacer_unos(Matriz *A, Pivote *piv);
 
-void ceros_abajo(Matriz *A, int i);
+void ceros_abajo(Matriz *A, Pivote *piv);
 
-void ceros_arriba(Matriz *A, int n);
+void ceros_arriba(Matriz *A, Pivote *piv);
 
 
 /*
@@ -63,14 +69,14 @@ int main(int argc, char *argv[])
 	llenarMatriz(&A);
 	// Imprimimos la matriz obtenida
 	imprimirMatriz(&A);
-
-	// Avanzamos por columna
-	for (int i = 0; i < A.ancho; i++)
+	
+	Pivote piv = {0, 0};
+	for (; piv.i < A.alto && piv.j < A.ancho; piv.i++, piv.j++)
 	{
-		cambiar_renglones(&A, i, i);
-		hacer_unos(&A, i, i);
-		ceros_abajo(&A, i);
-		ceros_arriba(&A, i);
+		cambiar_renglones(&A, &piv);
+		hacer_unos(&A, &piv);
+		ceros_abajo(&A, &piv);
+		ceros_arriba(&A, &piv);
 	}
 	// Imprimimos la matriz escalonada
 	imprimirMatriz(&A);
@@ -128,27 +134,28 @@ Conformado por:
 	- Segundo Cantero Jonathan Axel
 	- Valencia Reséndiz Carlos Alfonso
 */
-void cambiar_renglones(Matriz *A, int i, int j)
+void cambiar_renglones(Matriz *A, Pivote *piv)
 {
-	if (i != j)
+	if (A->e[piv->i][piv->j] != 0)
 		return;
-	if (A->e[i][j] != 0)
-		return;
-	for (int k = i; k < A->alto; k++)
+
+	for (int l = piv->j; l < A->ancho; l++)
 	{
-		if (A->e[k][j] != 0)
+		for (int k = piv->i; k < A->alto; k++)
 		{
-			for (int l = 0; l < A->ancho; l++)
+			if (0 != A->e[k][l])
 			{
-				float aux = A->e[k][l];
-				A->e[k][l] = A->e[i][l];
-				A->e[i][l] = aux;
+				for (int m = 0; m < A->ancho; m++)
+				{
+					float aux = A->e[k][m];
+					A->e[k][m] = A->e[piv->i][m];
+					A->e[piv->i][m] = aux;
+				}
+				return;
 			}
-			return;
 		}
+		piv->j++;
 	}
-	printf("No invertible.\n");
-	imprimirMatriz(A);
 	exit(1);
 }
 
@@ -159,14 +166,12 @@ Conformado por:
 	...
 	- Vergara Gamboa José Alfonso
 */
-void hacer_unos(Matriz *A, int i, int j)
+void hacer_unos(Matriz *A, Pivote *piv)
 {
-	if (i != j)
-		return;
-	float piv = A->e[i][j];
+	float factor = A->e[piv->i][piv->j];
 	for (int k = 0; k < A->ancho; k++)
 	{
-		A->e[i][k] /= piv;
+		A->e[piv->i][k] /= factor;
 	}
 }
 
@@ -180,14 +185,14 @@ Conformado por:
 	- Sánchez Reyes Danuel Aberto
 	- Tapia Tapia Mario Ivan
 */
-void ceros_abajo(Matriz *A, int i)
+void ceros_abajo(Matriz *A, Pivote *piv)
 {
-	for (int k = i + 1; k < A->alto; k++)
+	for (int k = piv->i + 1; k < A->alto; k++)
 	{
-		float factor = A->e[k][i];
-		for (int j = 0; j < A->ancho; j++)
+		float factor = A->e[k][piv->j];
+		for (int l = 0; l < A->ancho; l++)
 		{
-			A->e[k][j] -= factor * A->e[i][j];
+			A->e[k][l] -= factor * A->e[piv->i][l];
 		}
 	}
 }
@@ -202,12 +207,12 @@ Conformado por:
 	- Rosas Archundia Isaac Amed
 	- Vásquez Adrés Rajiv Eduardo
 */
-void ceros_arriba(Matriz *A, int i) {
-	for (int k = 0; k < i; k++) { 
-		float factor = A->e[k][i]; 
+void ceros_arriba(Matriz *A, Pivote *piv) {
+	for (int k = 0; k < piv->i; k++) { 
+		float factor = A->e[k][piv->i]; 
 
-		for (int j = 0; j < A->ancho; j++) { 
-			A->e[k][j] -= factor * A->e[i][j]; 
+		for (int l = 0; l < A->ancho; l++) { 
+			A->e[k][l] -= factor * A->e[piv->i][l]; 
 		}
 	}
 }
