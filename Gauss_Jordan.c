@@ -9,7 +9,7 @@ Compilación
 	Windows:
 		gcc -o Gauss_Jordan.exe Gauss_Jordan.c
 	Linux:
-		gcc -o Gauss_Jordan Gauss_Jordan.c
+		gcc -o Gauss_Jordan.out Gauss_Jordan.c
 */
 
 #include <math.h>
