@@ -70,8 +70,7 @@ int main(int argc, char *argv[])
 	// Imprimimos la matriz obtenida
 	imprimirMatriz(&A);
 	
-	Pivote piv = {0, 0};
-	for (; piv.i < A.alto && piv.j < A.ancho; piv.i++, piv.j++)
+	for (Pivote piv = {0, 0}; (piv.i < A.alto) && (piv.j < A.ancho); piv.i++, piv.j++)
 	{
 		cambiar_renglones(&A, &piv);
 		hacer_unos(&A, &piv);
@@ -101,13 +100,13 @@ void llenarMatriz(Matriz *A)
 
 void imprimirMatriz(Matriz *A)
 {
-	printf("\t\b┏");
+	printf("\n\t\b|-");
 	for (int i = 0; i < A->ancho; i++)
 		printf("\t");
-	printf(" ┓\n");
+	printf("-|\n");
 	for (int i = 0; i < A->alto; i++)
 	{
-		printf("\t\b┃");
+		printf("\t\b|");
 		for (int j = 0; j < A->ancho; j++)
 		{
 			if (A->e[i][j] == -0.0)
@@ -115,12 +114,12 @@ void imprimirMatriz(Matriz *A)
 			float distanceToInt = fabs((int)A->e[i][j] - A->e[i][j]);
 			printf("%.*f\t", (distanceToInt < 0.009) ? 0 : 2, A->e[i][j]);
 		}
-		printf(" ┃\n");
+		printf(" |\n");
 	}
-	printf("\t\b┗");
+	printf("\t\b|-");
 	for (int i = 0; i < A->ancho; i++)
 		printf("\t");
-	printf(" ┛\n");
+	printf("-|\n");
 }
 
 /*
@@ -156,6 +155,7 @@ void cambiar_renglones(Matriz *A, Pivote *piv)
 		}
 		piv->j++;
 	}
+	imprimirMatriz(A);
 	exit(1);
 }
 
