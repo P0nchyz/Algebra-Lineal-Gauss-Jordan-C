@@ -5,3 +5,5 @@
 - Linux
 
 	gcc -o Gauss_Jordan.out Gauss_Jordan.c
+
+Programa regresa una matriz escalonada.
