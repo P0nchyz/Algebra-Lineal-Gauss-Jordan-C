@@ -46,7 +46,7 @@ void imprimirMatriz(Matriz *A)
 			if (A->e[i][j] == -0.0)
 				A->e[i][j] = 0.0;
 			float distanceToInt = fabs((int)A->e[i][j] - A->e[i][j]);
-			printf("%.*f\t", (distanceToInt < 0.009) ? 0 : 2, A->e[i][j]);
+			printf("%.*f\t", (distanceToInt < 0.0001) ? 0 : 2, A->e[i][j]);
 		}
 		printf(" |\n");
 	}
