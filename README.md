@@ -1,7 +1,9 @@
 # Compilación
 - Windows
 
-	gcc -o Gauss_Jordan.exe Gauss_Jordan.c
+	make windows
 - Linux
 
-	gcc -o Gauss_Jordan.out Gauss_Jordan.c
+	make linux
+
+Hacegurate de tener instalado make (viene con el compilador gcc)
