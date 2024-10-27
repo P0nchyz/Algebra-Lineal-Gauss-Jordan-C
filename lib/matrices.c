@@ -94,4 +94,5 @@ Matriz *copiarMatriz(Matriz *A)
 			copiaMatriz->e[i][j] = A->e[i][j];
 		}
 	}
+	return copiaMatriz;
 }
