@@ -25,6 +25,19 @@ int gaussJordan(AumMatriz *A)
 	return 0;
 }
 
+int gaussJordanNoI(AumMatriz *A)
+{
+	for (Pivote piv = {0, 0}; (piv.i < A->alto) && (piv.j < A->lMatriz->ancho); piv.i++, piv.j++)
+	{
+		if (validar(A, &piv) == 1)
+			return 1;
+		hacer_unos(A, &piv);
+		ceros_abajo(A, &piv);
+		ceros_arriba(A, &piv);
+	}
+	return 0;
+}
+
 int validar(AumMatriz *A, Pivote *piv)
 {
 	if (0 != A->lMatriz->e[piv->i][piv->j])
