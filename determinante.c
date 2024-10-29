@@ -18,10 +18,10 @@ float determinante(Matriz *A)
 	int n = A->alto;
 	
 	// Submatriz de tamano (n -1) * (n - 1) 
-	Matriz *sub = crearMatriz(n - 1, n - 1);
 
 	for (int j = 0; j < n; j++)
 	{
+		Matriz *sub = crearMatriz(n - 1, n - 1);
 		//Submatriz excluyendo primera fila y la columna j
 		int sub_i = 0;
 		for (int i = 1; i < n; i++)
@@ -37,10 +37,9 @@ float determinante(Matriz *A)
 		//Usamos la recursividad para calcular el det de la submatriz, ademas de 
 		//Aplicar la operacion (-1)^(columna) para alternar los signos en el desarrollo (+ - + - + -.. etc)
 		resultado += pow(-1, j) * A->e[0][j] * determinante(sub);
+		eliminarMatriz(sub);
 	}
 
-	// Liberamos la memoria de submatriz
-	eliminarMatriz(A);
 
 	return resultado;
 }
