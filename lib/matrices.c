@@ -96,3 +96,18 @@ Matriz *copiarMatriz(Matriz *A)
 	}
 	return copiaMatriz;
 }
+
+bool esMatrizIgual(Matriz *A, Matriz *B)
+{
+	if ((A->alto != B->alto) || (A->ancho != B->ancho))
+		return false;
+	for (int i = 0; i < A->alto; i++)
+	{
+		for (int j = 0; j < A->ancho; j++)
+		{
+			if (A->e[i][j] != B->e[i][j])
+				return false;
+		}
+	}
+	return true;
+}

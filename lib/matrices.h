@@ -1,6 +1,8 @@
 #ifndef MATRICES_H
 #define MATRICES_H
 
+#include <stdbool.h>
+
 /// @brief Estructura que contiene el tamaño de una matriz, asi como un arreglo bidimensional con todos sus elementos.
 ///
 /// Usar siempre como apuntador
@@ -48,5 +50,7 @@ Matriz *crearMatrizIdentidad(unsigned int tamano);
 /// @param A Matriz a copiar, no sera modificada
 /// @return Apuntador a nueva Matriz con los datos y tamaño de la que se copio
 Matriz *copiarMatriz(Matriz *A);
+
+bool esMatrizIgual(Matriz *A, Matriz *B);
 
 #endif

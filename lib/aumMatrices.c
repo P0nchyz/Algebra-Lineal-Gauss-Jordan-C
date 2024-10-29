@@ -93,3 +93,12 @@ AumMatriz *copiarAumMatriz(AumMatriz *A)
 	cpAMatriz->rMatriz = copiarMatriz(A->rMatriz);
 	return cpAMatriz;
 }
+
+bool esAumMatrizIgual(AumMatriz *A, AumMatriz *B)
+{
+	if ((A->alto != B->alto) || (A->ancho != B->ancho))
+		return false;
+	if ((!esMatrizIgual(A->lMatriz, B->lMatriz)) || !esMatrizIgual(A->rMatriz, B->rMatriz))
+		return false;
+	return true;
+}

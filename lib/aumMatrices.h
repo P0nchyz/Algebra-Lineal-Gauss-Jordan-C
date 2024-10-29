@@ -1,7 +1,7 @@
 #ifndef AUMMATRICES_H
 #define AUMMATRICES_H
 
-
+#include <stdbool.h>
 #include "matrices.h"
 
 /// @brief Estructura que contiene apuntadores a dos matrices, asi como el tamaño de la matriz formada al aumentarlas
@@ -49,5 +49,8 @@ void llenarAumMatriz(AumMatriz *A);
 /// @param A Apuntador a la matriz aumentada a copiar (No se modificara)
 /// @return Apuntador a una nueva matriz aumentada con todos los datos de A
 AumMatriz *copiarAumMatriz(AumMatriz *A);
+
+
+bool esAumMatrizIgual(AumMatriz *A, AumMatriz *B);
 
 #endif
