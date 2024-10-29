@@ -6,3 +6,5 @@ void pasoAPaso(AumMatriz *A);
 float determinante(Matriz *A);
 
 int SEL(AumMatriz *A);
+
+Matriz *inversa(Matriz *A);

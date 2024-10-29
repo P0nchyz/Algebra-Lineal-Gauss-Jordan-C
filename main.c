@@ -89,6 +89,14 @@ void callInversa()
 	Matriz *A = crearMatriz(alto, ancho);
 	llenarMatriz(A);
 	imprimirMatriz(A);
+	Matriz *matrizInversa = inversa(A);
+	if (NULL == matrizInversa)
+	{
+		printf("Matriz no Invertible.\n");
+		return;
+	}
+	printf("Matriz Inversa:\n");
+	imprimirMatriz(matrizInversa);	
 }
 void callSEL()
 {
