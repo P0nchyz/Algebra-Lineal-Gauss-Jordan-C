@@ -16,7 +16,7 @@ void cambiarFilas(AumMatriz *A, int deFila, int aFila)
 			int offset = j - A->lMatriz->ancho;
 			float temp = A->rMatriz->e[deFila][offset];
 			A->rMatriz->e[deFila][offset] = A->rMatriz->e[aFila][offset];
-			A->rMatriz->e[deFila][offset] = temp;
+			A->rMatriz->e[aFila][offset] = temp;
 		}
 	}
 	return;
