@@ -5,6 +5,7 @@
 #include "gaussJordan.h"
 #include "lib/opElementales.h"
 #include "lib/matrices.h"
+#include "lib/subMatriz.h"
 
 #include "equipos.h"
 
@@ -12,6 +13,7 @@ void callDeterminante();
 void callPasoAPaso();
 void callInversa();
 void callSEL();
+void calldeterminantePaP();
 
 
 int main(int argc, char const *argv[])
@@ -110,4 +112,48 @@ void callSEL()
 	AumMatriz *A = crearAumMatriz(ancho, alto, 1);
 	llenarAumMatriz(A);
 	SEL(A);
+}
+
+/*Se agrego la funcion calldeterminantesPaP aunque 
+la verdad no estoy muy seguro si si va asi*/
+void calldeterminantePaP()
+{
+    int alto, ancho;
+
+    // Solicitar las dimensiones de la matriz
+    printf("Alto: ");
+    scanf("%d", &alto);
+    printf("Ancho: ");
+    scanf("%d", &ancho);
+    getc(stdin); // Consumir el salto de línea sobrante
+
+    // Verificar si la matriz es cuadrada
+    if (alto != ancho)
+    {
+        printf("Error: La matriz debe ser cuadrada para calcular el determinante.\n");
+        return;
+    }
+
+    // Crear la matriz
+    SubMatriz *A = crearSubMatriz(ancho, alto, ancho);
+    if (!A)
+    {
+        printf("Error al crear la matriz.\n");
+        return;
+    }
+
+    // Llenar la matriz con datos ingresados por el usuario
+    llenarAumMatriz(A);
+
+    // Mostrar la matriz ingresada (opcional, para confirmación)
+    printf("\nMatriz ingresada:\n");
+    imprimirAumMatriz(A);
+
+    // Calcular y mostrar el determinante paso a paso
+    printf("\nCalculando la determinante paso a paso\n");
+    float resultado = determinantePaP(A); 
+    printf("\nLa determinante de la matriz es: %.2f\n", resultado);
+
+    // Liberar memoria
+    eliminarAumMatriz(A);
 }
