@@ -18,6 +18,16 @@ Matriz *crearMatriz(unsigned int ancho, unsigned int alto)
 	return rMatriz;
 }
 
+// Función para mostrar una matriz
+void mostrarMatriz(Matriz *mat) {
+    for (int i = 0; i < mat->alto; i++) {
+        for (int j = 0; j < mat->ancho; j++) {
+            printf("%8.2f ", mat->e[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 void eliminarMatriz(Matriz *A)
 {
 	for (int i = 0; i < A->alto; i++)

@@ -35,13 +35,7 @@ float determinantePaP(SubMatriz *A) {
     int n = A->n;
 
     // Submatriz de tamaño (n-1) x (n-1)
-    Matriz sub;
-    sub.alto = n - 1;
-    sub.ancho = n - 1;
-    sub.e = (float**)malloc((n - 1) * sizeof(float*));
-    for (int i = 0; i < n - 1; i++) {
-        sub.e[i] = (float*)malloc((n - 1) * sizeof(float));
-    }
+    Matriz *sub = crearMatriz(n - 1, n - 1);
 
     for (int j = 0; j < n; j++) {
         // Construimos la submatriz excluyendo la primera fila y la columna j
@@ -50,17 +44,17 @@ float determinantePaP(SubMatriz *A) {
             int sub_j = 0;
             for (int k = 0; k < n; k++) {
                 if (k == j) continue;
-                sub.e[sub_i][sub_j] = A->e[i][k];
+                sub->e[sub_i][sub_j] = A->e[i][k];
                 sub_j++;
             }
             sub_i++;
         }
 
         printf("Submatriz excluyendo columna %d:\n", j + 1);
-        mostrarMatriz(&sub);
+        mostrarMatriz(sub);
 
         // Calculamos la determinante de la submatriz recursivamente
-        float subDet = det(&sub);
+        float subDet = det(sub);
         printf("Sub-determinante = %.2f\n", subDet);
         printf("Producto = %.2f * %.2f * %.2f = %.2f\n\n", pow(-1, j), A->e[0][j], subDet, pow(-1, j) * A->e[0][j] * subDet);
 
@@ -69,9 +63,9 @@ float determinantePaP(SubMatriz *A) {
 
     // Liberamos la memoria de la submatriz
     for (int i = 0; i < n - 1; i++) {
-        free(sub.e[i]);
+        free(sub->e[i]);
     }
-    free(sub.e);
+    free(sub->e);
 
     return resultado;
 }

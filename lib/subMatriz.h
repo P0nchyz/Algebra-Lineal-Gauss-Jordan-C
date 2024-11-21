@@ -12,6 +12,7 @@ typedef struct SubMatriz {
     float **e;        
 } SubMatriz;
 
+
 /// @brief Asigna memoria para una Matriz y devuelve un apuntador a la Matriz
 /// @param ancho Numero de Columnas
 /// @param alto Numero de Filas

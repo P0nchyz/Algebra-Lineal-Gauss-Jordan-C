@@ -45,6 +45,17 @@ bool esFilaValida(SubMatriz *mat, int fila) {
     return (fila >= 0 && fila < mat->n);
 }
 
+// Función para mostrar una matriz
+void mostrarMatriz(Matriz *mat) {
+    for (int i = 0; i < mat->alto; i++) {
+        for (int j = 0; j < mat->ancho; j++) {
+            printf("%8.2f ", mat->e[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
 // Menú de operaciones paso a paso
 void pasoAPaso(SubMatriz *mat) {
     imprimirSubMatriz(mat);
