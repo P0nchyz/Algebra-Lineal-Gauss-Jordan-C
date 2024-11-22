@@ -68,12 +68,15 @@ void callPasoAPaso()
 	int alto;
 	printf("Alto: ");
 	scanf("%d", &alto);
-	int Ancho;
-	printf("Ancho: ");
-	scanf("%d", &Ancho);
+	int lAncho;
+	printf("Ancho Izquierda: ");
+	scanf("%d", &lAncho);
+	int rAncho;
+	printf("Ancho Derecha: ");
+	scanf("%d", &rAncho);
 	getc(stdin);
 
-	AumMatriz *A = crearAumMatriz(Ancho, alto, Ancho);
+	AumMatriz *A = crearAumMatriz(lAncho, alto, rAncho);
 	llenarAumMatriz(A);
 	pasoAPaso(A);
 }
