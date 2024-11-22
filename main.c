@@ -115,44 +115,38 @@ void callSEL()
 
 /*Se agrego la funcion calldeterminantesPaP aunque 
 la verdad no estoy muy seguro si si va asi*/
-void calldeterminantePaP()
-{
-    int alto, ancho;
+void calldeterminantePaP() {
+    unsigned int alto, ancho;
 
-    // Solicitar las dimensiones de la matriz
     printf("Alto: ");
-    scanf("%d", &alto);
+    scanf("%u", &alto);
     printf("Ancho: ");
-    scanf("%d", &ancho);
-    getc(stdin); // Consumir el salto de línea sobrante
+    scanf("%u", &ancho);
+    getchar(); 
 
     // Verificar si la matriz es cuadrada
-    if (alto != ancho)
-    {
-        printf("Error: La matriz debe ser cuadrada para calcular el determinante.\n");
+    if (alto != ancho) {
+        printf("Error: La matriz debe ser cuadrada para calcular el determinante\n");
         return;
     }
 
-    // Crear la matriz
-    Matriz *A = crearSubMatriz(ancho, alto, ancho);
-    if (!A)
-    {
-        printf("Error al crear la matriz.\n");
+    // Crear la matriz solo sio esta es cuadrada de otra forma marcara el sig error
+    Matriz *A = crearMatriz(ancho, alto);
+    if (!A) {
+        printf("Error al crear la matriz \n");
         return;
     }
 
-    // Llenar la matriz con datos ingresados por el usuario
-    llenarAumMatriz(A);
+    printf("Ingrese los elementos de la matriz, separados por espacios y saltos de linea: \n");
+    llenarMatriz(A);
 
-    // Mostrar la matriz ingresada (opcional, para confirmación)
-    printf("\nMatriz ingresada:\n");
-    imprimirAumMatriz(A);
+    printf("\nLa maatriz ingresada es:\n");
+    imprimirMatriz(A);
 
     // Calcular y mostrar el determinante paso a paso
-    printf("\nCalculando la determinante paso a paso\n");
-    float resultado = determinantePaP(A); 
-    printf("\nLa determinante de la matriz es: %.2f\n", resultado);
+    printf("\nCalculando el determinante paso a paso: \n");
+    float resultado = determinantePaP(A);
+    printf("\nEl determinante de la matriz es: %.2f \n", resultado);
 
-    // Liberar memoria
-    eliminarAumMatriz(A);
+    eliminarMatriz(A);
 }
