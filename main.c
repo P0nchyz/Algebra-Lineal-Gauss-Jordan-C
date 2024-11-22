@@ -5,7 +5,6 @@
 #include "gaussJordan.h"
 #include "lib/opElementales.h"
 #include "lib/matrices.h"
-#include "lib/subMatriz.h"
 
 #include "equipos.h"
 
@@ -135,7 +134,7 @@ void calldeterminantePaP()
     }
 
     // Crear la matriz
-    SubMatriz *A = crearSubMatriz(ancho, alto, ancho);
+    Matriz *A = crearSubMatriz(ancho, alto, ancho);
     if (!A)
     {
         printf("Error al crear la matriz.\n");
