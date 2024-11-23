@@ -63,3 +63,133 @@ float determinantePaP(Matriz *A) {
 
     return resultado;
 }
+
+// Menú de operaciones paso a paso
+void pasoAPaso(Matriz *mat) {
+    imprimirSubMatriz(mat);
+    int opc = 0;
+
+    while (opc == 0) {
+        printf("\nSeleccione una operación:\n");
+        printf("1. Sumar filas\n");
+        printf("2. Restar filas\n");
+        printf("3. Multiplicar fila\n");
+        printf("4. Dividir fila\n");
+        printf("5. Cambiar filas\n");
+        printf("6. Salir\n");
+        int op;
+        scanf("%d", &op);
+
+        int fila1, fila2;
+        float factor;
+        switch (op) {
+            case 1:
+                printf("Suma de filas: Ri + k*Rj -> Ri\n");
+                printf("Fila a modificar (Ri): ");
+                scanf("%d", &fila1);
+                printf("Factor (k): ");
+                scanf("%f", &factor);
+                printf("Fila a sumar (Rj): ");
+                scanf("%d", &fila2);
+                fila1--;
+                fila2--;
+
+                if (esFilaValida(mat, fila1) && esFilaValida(mat, fila2)) {
+                    for (unsigned int j = 0; j < mat->ancho; j++) {
+                        mat->e[fila1][j] += factor * mat->e[fila2][j];
+                    }
+                    imprimirSubMatriz(mat);
+                } else {
+                    printf("Filas inválidas.\n");
+                }
+                break;
+
+            case 2:
+                printf("Resta de filas: Ri - k*Rj -> Ri\n");
+                printf("Fila a modificar (Ri): ");
+                scanf("%d", &fila1);
+                printf("Factor (k): ");
+                scanf("%f", &factor);
+                printf("Fila a restar (Rj): ");
+                scanf("%d", &fila2);
+                fila1--;
+                fila2--;
+
+                if (esFilaValida(mat, fila1) && esFilaValida(mat, fila2)) {
+                    for (unsigned int j = 0; j < mat->ancho; j++) {
+                        mat->e[fila1][j] -= factor * mat->e[fila2][j];
+                    }
+                    imprimirSubMatriz(mat);
+                } else {
+                    printf("Filas inválidas.\n");
+                }
+                break;
+
+            case 3:
+                printf("Multiplicación de fila: k*Ri -> Ri\n");
+                printf("Fila a modificar (Ri): ");
+                scanf("%d", &fila1);
+                printf("Factor (k): ");
+                scanf("%f", &factor);
+                fila1--;
+
+                if (esFilaValida(mat, fila1)) {
+                    for (unsigned int j = 0; j < mat->ancho; j++) {
+                        mat->e[fila1][j] *= factor;
+                    }
+                    imprimirSubMatriz(mat);
+                } else {
+                    printf("Fila inválida.\n");
+                }
+                break;
+
+            case 4:
+                printf("División de fila: Ri / k -> Ri\n");
+                printf("Fila a modificar (Ri): ");
+                scanf("%d", &fila1);
+                printf("Factor (k): ");
+                scanf("%f", &factor);
+                fila1--;
+
+                if (esFilaValida(mat, fila1) && factor != 0) {
+                    for (unsigned int j = 0; j < mat->ancho; j++) {
+                        mat->e[fila1][j] /= factor;
+                    }
+                    imprimirSubMatriz(mat);
+                } else {
+                    printf("Fila inválida o factor inválido.\n");
+                }
+                break;
+
+            case 5:
+                printf("Intercambiar filas: Ri <-> Rj\n");
+                printf("Primera fila (Ri): ");
+                scanf("%d", &fila1);
+                printf("Segunda fila (Rj): ");
+                scanf("%d", &fila2);
+                fila1--;
+                fila2--;
+
+                if (esFilaValida(mat, fila1) && esFilaValida(mat, fila2)) {
+                    for (unsigned int j = 0; j < mat->ancho; j++) {
+                        float temp = mat->e[fila1][j];
+                        mat->e[fila1][j] = mat->e[fila2][j];
+                        mat->e[fila2][j] = temp;
+                    }
+                    imprimirSubMatriz(mat);
+                } else {
+                    printf("Filas inválidas.\n");
+                }
+                break;
+
+            case 6:
+                printf("Saliendo...\n");
+                opc = 1;
+                break;
+
+            default:
+                printf("Opción no válida.\n");
+                break;
+        }
+    }
+}
