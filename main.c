@@ -25,6 +25,7 @@ int main(int argc, char const *argv[])
 		printf("\t(p) Gauss Jordan paso a paso.\n");
 		printf("\t(i) Obtener la inversa.\n");
 		printf("\t(s) Resolver Sistemas de ecuaciones.\n");
+		printf("\t(k) Determiante Paso a Paso\n");
 		scanf("%c", &operacion);
 	}
 	else
@@ -43,6 +44,9 @@ int main(int argc, char const *argv[])
 		break;
 	case 's':
 		callSEL();
+		break;
+	case 'k':
+		calldeterminantePaP();
 		break;
 	default:
 		break;
