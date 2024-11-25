@@ -2,6 +2,8 @@
 #include "lib/aumMatrices.h"
 #include "gaussJordan.h"
 #include "lib/opElementales.h"
+#include <math.h>
+#include <stdlib.h>
 
 int validar(AumMatriz *A, Pivote *piv);
 
@@ -40,14 +42,14 @@ int gaussJordanNoI(AumMatriz *A)
 
 int validar(AumMatriz *A, Pivote *piv)
 {
-	if (0 != A->lMatriz->e[piv->i][piv->j])
+	if (fabsf(A->lMatriz->e[piv->i][piv->j]) >= 0.01)
 		return 0;
 
 	for (int l = piv->j; l < A->lMatriz->ancho; l++)
 	{
 		for (int k = piv->i; k < A->alto; k++)
 		{
-			if (0 != A->lMatriz->e[k][l])
+			if (fabsf(A->lMatriz->e[k][l]) >= 0.01)
 			{
 				cambiarFilas(A, piv->i, k);
 				return 0;
@@ -62,6 +64,8 @@ void hacer_unos(AumMatriz *A, Pivote *piv)
 {
 	float factor = A->lMatriz->e[piv->i][piv->j];
 	multFila(A, piv->i, 1/factor);
+	if (fabsf(1 - A->lMatriz->e[piv->i][piv->j]) < 0.01)
+		A->lMatriz->e[piv->i][piv->j] = 1;
 	return;
 }
 
@@ -71,6 +75,8 @@ void ceros_abajo(AumMatriz *A, Pivote *piv)
 	{
 		float factor = A->lMatriz->e[k][piv->j];
 		sumaFilas(A, k, -factor, piv->i);
+		if (fabsf(A->lMatriz->e[k][piv->j]) < 0.01)
+			A->lMatriz->e[k][piv->j] = 0;
 	}
 	return;
 }
@@ -81,6 +87,8 @@ void ceros_arriba(AumMatriz *A, Pivote *piv)
 	{
 		float factor = A->lMatriz->e[k][piv->j];
 		sumaFilas(A, k, -factor, piv->i);
+		if (fabsf(A->lMatriz->e[k][piv->j]) < 0.01)
+			A->lMatriz->e[k][piv->j] = 0;
 	}
 	return;
 }

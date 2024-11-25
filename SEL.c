@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "gaussJordan.h"
 
@@ -22,7 +23,7 @@ int SEL(AumMatriz *A) {
 	for (int i = 0; i < A->alto; i++) {
 		int filaEsCero = 1;
 		for (int j = 0; j < columnasCoeficientes; j++) {
-			if (A->lMatriz->e[i][j] != 0) {
+			if (fabsf(A->lMatriz->e[i][j]) >= 0.01) {
 				filaEsCero = 0;
 				break;
 			}

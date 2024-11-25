@@ -41,7 +41,7 @@ void imprimirAumMatriz(AumMatriz *A)
 			if (elemento == -0.0)
 				elemento = 0.0;
 			float distanceToInt = fabs((int)elemento - elemento);
-			printf("%.*f\t", (distanceToInt < 0.0001) ? 0 : 2, elemento);
+			printf("%.*f\t", (distanceToInt < 0.0001) ? 10 : 10, elemento);
 		}
 		printf("||\t");
 		for (int j = 0; j < A->rMatriz->ancho; j++)
